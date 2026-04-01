@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TacadaApp.DetalhesComandaPage"
+             x:Name="TelaDetalhes">
+    <Grid Padding="15" RowSpacing="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <VerticalStackLayout Grid.Row="0" Spacing="10">
+            <Border BackgroundColor="#1E1E1E" Padding="15" StrokeShape="RoundRectangle 10">
+                <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                        <Label Text="Consumido" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+                        <Label Text="{Binding TextoTotalConsumido}" FontSize="18" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                        <Label Text="Já Pago" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+                        <Label Text="{Binding TextoTotalPago}" FontSize="18" FontAttributes="Bold" TextColor="#FF9800" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                        <Label Text="Falta Pagar" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+                        <Label Text="{Binding TextoFaltaPagar}" FontSize="18" FontAttributes="Bold" TextColor="#4CAF50" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Label Text="Adicionar Rápido:" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0"/>
+
+            <CollectionView x:Name="ListaBotoesRapidos" HeightRequest="135" ItemsSource="{Binding BotoesCardapio}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Button Text="{Binding Nome}" 
+                                Command="{Binding BindingContext.AdicionarItemCardapioCommand, Source={x:Reference TelaDetalhes}}" 
+                                CommandParameter="{Binding .}" 
+                                BackgroundColor="{Binding CorHexadecimal}" 
+                                TextColor="White" 
+                                CornerRadius="8" 
+                                FontAttributes="Bold"
+                                HeightRequest="50" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1" Spacing="10">
+            <Button Text="+ Outro Produto" Command="{Binding AddOutroCommand}" BackgroundColor="#607D8B" TextColor="White" CornerRadius="8" FontAttributes="Bold" />
+            <Label Text="Itens Consumidos:" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0"/>
+        </VerticalStackLayout>
+
+        <CollectionView x:Name="ListaItens" Grid.Row="2" Margin="0,5,0,5" ItemsSource="{Binding ItensAgrupados}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" 
+                               Text="{Binding Nome}" 
+                               FontSize="18" 
+                               TextColor="White" 
+                               VerticalOptions="Center" />
+
+                        <Label Grid.Column="1" 
+                               Text="{Binding PrecoTotal, StringFormat='R$ {0:F2}'}" 
+                               FontSize="18" 
+                               TextColor="#4CAF50" 
+                               FontAttributes="Bold" 
+                               VerticalOptions="Center" 
+                               Margin="0,0,15,0" />
+
+                        <Button Grid.Column="2" 
+                                Text="X" 
+                                BackgroundColor="#F44336" 
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                WidthRequest="40" 
+                                HeightRequest="40" 
+                                CornerRadius="20"
+                                Padding="0"
+                                Command="{Binding BindingContext.RemoverItemCommand, Source={x:Reference TelaDetalhes}}"
+                                CommandParameter="{Binding .}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <VerticalStackLayout Grid.Row="3" Spacing="10" Margin="0,5,0,5">
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                <Button Grid.Column="0" Text="Pagamento Parcial" Command="{Binding PagamentoParcialCommand}" BackgroundColor="#FF9800" TextColor="White" FontSize="14" FontAttributes="Bold" CornerRadius="8" />
+                <Button Grid.Column="1" Text="Fechar Conta" Command="{Binding FecharContaCommand}" BackgroundColor="#4CAF50" TextColor="White" FontSize="14" FontAttributes="Bold" CornerRadius="8" />
+            </Grid>
+
+            <Button Text="💬 Compartilhar Comanda" 
+                    Command="{Binding CompartilharWhatsAppCommand}" 
+                    BackgroundColor="#607D8B" 
+                    TextColor="White" 
+                    FontSize="16" 
+                    FontAttributes="Bold" 
+                    CornerRadius="8" 
+                    HeightRequest="45"/>
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>

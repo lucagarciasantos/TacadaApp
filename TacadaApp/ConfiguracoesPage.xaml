@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TacadaApp.ConfiguracoesPage">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <Label Text="Produtos dos Botões Rápidos" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" />
+
+        <Button Text="+ Adicionar Novo Botão" Clicked="OnAdicionarProdutoClicked" BackgroundColor="#4CAF50" TextColor="White" FontSize="18" FontAttributes="Bold" CornerRadius="8" />
+
+        <CollectionView x:Name="ListaCardapio" HeightRequest="450">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,5" Padding="0" BackgroundColor="#2B2B2B" StrokeShape="RoundRectangle 8" StrokeThickness="0">
+
+                        <Grid ColumnDefinitions="10, *, Auto, Auto">
+
+                            <BoxView Grid.Column="0" BackgroundColor="{Binding CorHexadecimal, FallbackValue='#808080'}" />
+
+                            <Label Grid.Column="1" Text="{Binding Nome}" FontSize="18" TextColor="White" VerticalOptions="Center" Margin="15,15,0,15"/>
+
+                            <Label Grid.Column="2" Text="{Binding Preco, StringFormat='R$ {0:F2}'}" FontSize="18" TextColor="#4CAF50" FontAttributes="Bold" VerticalOptions="Center" Margin="15,15,15,15"/>
+
+                            <Button Grid.Column="3" Text="X" BackgroundColor="#F44336" TextColor="White" FontAttributes="Bold" CornerRadius="15" WidthRequest="35" HeightRequest="35" Padding="0" VerticalOptions="Center" Margin="0,15,15,15" Clicked="OnRemoverProdutoClicked" CommandParameter="{Binding .}" />
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>  

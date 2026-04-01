@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TacadaApp.MainPage"
+             Title="Tacada"
+             BackgroundColor="#121212"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="15" Padding="20,20,20,10">
+            <VerticalStackLayout HorizontalOptions="Center" Margin="0,0,0,10" Spacing="8">
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="TACADA" FontSize="20" FontAttributes="Bold" TextColor="#4CAF50" HorizontalOptions="Center" CharacterSpacing="3" />
+                    <Label Text="SNOOKER BAR" FontSize="12" TextColor="White" HorizontalOptions="Center" CharacterSpacing="1" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+            <Label Text="Comandas Abertas" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White"/>
+
+            <Button Text="+ Nova Comanda" 
+                    Command="{Binding NovaComandaCommand}" 
+                    BackgroundColor="#4CAF50" TextColor="White" FontAttributes="Bold" FontSize="18" HeightRequest="55" CornerRadius="10" Margin="0,10,0,0"/>
+        </VerticalStackLayout>
+
+        <CollectionView x:Name="ListaComandas" 
+                        Grid.Row="1"
+                        Margin="20,10,20,0"
+                        ItemsSource="{Binding ComandasAtivas}"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding AbrirComandaCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="15" VerticalItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border BackgroundColor="#2B2B2B" Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                            <Label Text="{Binding Identificacao}" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+                            <Label Text="{Binding TotalConta, StringFormat='R$ {0:F2}'}" FontSize="18" TextColor="#4CAF50" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1" Text="&#x2630;" 
+                Command="{Binding AbrirMenuFlutuanteCommand}" 
+                FontSize="24" BackgroundColor="#616161" TextColor="White" CornerRadius="30" WidthRequest="60" HeightRequest="60" HorizontalOptions="End" VerticalOptions="End" Margin="0, 0, 20, 30" ZIndex="1"/>
+    </Grid>
+</ContentPage>
