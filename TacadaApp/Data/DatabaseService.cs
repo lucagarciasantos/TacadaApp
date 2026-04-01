@@ -80,20 +80,21 @@ namespace TacadaApp.Data
             }
         }
 
+        // IMPLEMENTAÇÃO FUTURA APÓS VALIDAÇÕES COM CLIENTE
         // Deleta a comanda e seus itens associados
-        public async Task DeletarComandaAsync(Comanda comanda)
-        {
-            await Init();
+        //public async Task DeletarComandaAsync(Comanda comanda)
+        //{
+            //await Init();
 
-            var produtosDestaComanda = await _db.Table<Produto>().Where(p => p.ComandaId == comanda.Id).ToListAsync();
+            //var produtosDestaComanda = await _db.Table<Produto>().Where(p => p.ComandaId == comanda.Id).ToListAsync();
 
-            foreach (var produto in produtosDestaComanda)
-            {
-                await _db.DeleteAsync(produto);
-            }
+            //foreach (var produto in produtosDestaComanda)
+            //{
+                //await _db.DeleteAsync(produto);
+            //}
 
-            await _db.DeleteAsync(comanda);
-        }
+            //await _db.DeleteAsync(comanda);
+        //}
 
         // ==========================================
         // CRUD DE PRODUTOS E CARDÁPIO
